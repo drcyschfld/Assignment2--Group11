@@ -167,3 +167,9 @@ void initialise_board() {
 	*led_output_registers = 0x5555;
 }
 
+
+void enable_clocks() {
+
+	RCC->AHBENR |= RCC_AHBENR_GPIOAEN | RCC_AHBENR_GPIOCEN | RCC_AHBENR_GPIOEEN;
+
+}
