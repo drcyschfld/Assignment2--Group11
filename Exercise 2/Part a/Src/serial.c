@@ -127,7 +127,7 @@ void SerialReadChar(uint8_t *incoming_buffer, SerialPort *serial_port) {
 
 	if ((serial_port->UART->ISR & USART_ISR_RXNE) == 0) {
 		SerialReadChar(incoming_buffer, serial_port);
-		//This is a logical error as well
+		//This causes an infinite loop
 
 	}
 
@@ -141,7 +141,7 @@ void SerialReadChar(uint8_t *incoming_buffer, SerialPort *serial_port) {
 void SerialReadString(uint8_t *incoming_buffer, SerialPort *serial_port) {
 	uint32_t counter = 0;
 
-	while((*incoming_buffer != 'a')) {
+	while((*incoming_buffer != '+')) {
 		SerialReadChar((incoming_buffer+1), serial_port);
 		counter++;
 		incoming_buffer++;
@@ -150,17 +150,20 @@ void SerialReadString(uint8_t *incoming_buffer, SerialPort *serial_port) {
 }
 
 void LED_string(uint8_t *string, uint32_t counter) {
-	uint16_t *led_register = ((uint8_t*)&(GPIOE->ODR)) + 1;
 
-	for(int i = 0; (i-1) < counter; i++) {
-		//string = string + i;
-		*led_register = string[i]; //I am unable to write into the led_register
+	for(int i = 0; (i) < (counter-1); i++) {
+
+	uint8_t *led_register = ((uint8_t*)&(GPIOE->ODR)) + 1;
+	*led_register = string[i]; //I am unable to write into the led_register
+	//Insert Delay function
 
 	}
 }
+
 
 void initialise_board() {
 	// get a pointer to the second half word of the MODER register (for outputs pe8-15)
 	uint16_t *led_output_registers = ((uint16_t *)&(GPIOE->MODER)) + 1;
 	*led_output_registers = 0x5555;
 }
+
