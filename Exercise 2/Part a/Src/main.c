@@ -21,7 +21,6 @@
 #include <stdio.h>
 
 #include "serial.h"
-#include "movement.h"
 
 
 #include "stm32f303xc.h"
@@ -31,12 +30,6 @@
 #endif
 
 
-
-void enable_clocks() {
-
-	RCC->AHBENR |= RCC_AHBENR_GPIOAEN | RCC_AHBENR_GPIOCEN | RCC_AHBENR_GPIOEEN;
-
-}
 
 
 int main(void)
@@ -50,8 +43,9 @@ int main(void)
 
 	SerialReadString(incoming_buffer, &USART1_PORT);
 
+
+
 	/* Loop forever */
 	for(;;) {
 	}
 }
-
