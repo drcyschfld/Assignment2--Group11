@@ -1,0 +1,12 @@
+/Users/kyangan/Downloads/MTRX2700-2024-main 3/stm32f303-definitions/Core/Inc/core_cm4.h:1688:22:__NVIC_EnableIRQ	2
+/Users/kyangan/Downloads/MTRX2700-2024-main 3/stm32f303-definitions/Core/Inc/core_cm4.h:1816:22:__NVIC_SetPriority	2
+../Src/initialise.c:11:5:enable_clocks	1
+../Src/initialise.c:20:6:initialise_board	1
+../Src/initialise.c:28:6:reset_timer	1
+../Src/initialise.c:34:6:reset_UIF	1
+../Src/initialise.c:40:6:max_count_value	1
+../Src/initialise.c:47:6:start_timer	1
+../Src/initialise.c:53:6:set_prescaler	1
+../Src/initialise.c:60:6:general_initialisation	1
+../Src/initialise.c:67:6:timer_initialisation	1
+../Src/initialise.c:81:6:enable_interrupt	1
