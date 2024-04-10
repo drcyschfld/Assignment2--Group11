@@ -31,34 +31,19 @@
 #endif
 
 
-void (*on_button_press)() = 0x00;
+uint8_t incoming_buffer[200];
 
-void USART1_IRQnHandler(void)
+uint8_t terminating_char_sent = 0;
+
+
+void USART1_EXTI25_IRQHandler(void)
 {
 
-	if (on_button_press != 0x00) {
-		on_button_press();
-	}
-
-
-	volatile uint8_t *incoming_buffer[200];
-	SerialReadString(incoming_buffer, USART1);
-	//Is this correct or does it still use too much polling for characters
-
-
-	// reset the interrupt (so it doesn't keep firing until the next trigger)
+	terminating_char_sent = SerialReadChar(incoming_buffer, &USART1_PORT);
 	EXTI->PR |= EXTI_PR_PR0;
 }
 
-void finished_transmission(uint32_t bytes_sent) {
-	// This function will be called after a transmission is complete
 
-	volatile uint32_t test = 0;
-	// make a very simple delay
-	for (volatile uint32_t i = 0; i < 0x8ffff; i++) {
-		// waste time !
-	}
-}
 
 
 void enable_clocks() {
@@ -75,19 +60,16 @@ int main(void)
 
 	void (*completion_function)(uint32_t) = &LED_string;
 
-	//LED_string(4, (string_to_send + 4));
-
 
 	SerialInitialise(BAUD_115200, &USART1_PORT, completion_function);
 	initialise_board();
 
-	on_button_press = &chase_led;
-	enable_interrupt();
-
-
+	NVIC_EnableIRQ(USART1_IRQn);
 
 	/* Loop forever */
 	for(;;) {
-
 	}
 }
+
+
+
