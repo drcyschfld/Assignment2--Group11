@@ -40,7 +40,7 @@ void SerialOutputChar(uint8_t, SerialPort *serial_port);
 // Input: pointer to a NULL-TERMINATED string (if not null terminated, there will be problems)
 void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
  
-void SerialReadChar(uint8_t *incoming_buffer, SerialPort *serial_port);
+uint8_t SerialReadChar(uint8_t *incoming_buffer, SerialPort *serial_port);
 
 void SerialReadString(uint8_t *incoming_buffer, SerialPort *serial_port);
 
