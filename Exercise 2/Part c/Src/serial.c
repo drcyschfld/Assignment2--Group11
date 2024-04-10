@@ -119,30 +119,27 @@ void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
 }
 
 
-void SerialReadChar(uint8_t *incoming_buffer, SerialPort *serial_port) {
+uint8_t SerialReadChar(uint8_t *incoming_buffer, SerialPort *serial_port) {
 
-	while (((serial_port->UART->ISR & (USART_ISR_ORE | USART_ISR_FE)) != 0)) {
+	static uint8_t buffer_counter = 0;
+
+
+	if (((serial_port->UART->ISR & (USART_ISR_ORE | USART_ISR_FE)) != 0)) {
 		// set the flags ORECF and FECF to 1
-		uint8_t data = (USART_ICR_ORECF | USART_ICR_FECF);
-		uint8_t banana = serial_port->UART->ICR | data;
-		//serial_port->UART->ICR (1 << 3 | 1 << 1);
-		serial_port->UART->TDR = data;
-		//I am unable to write to UART-> ICR but can write to TDR
-		//Effectively there are some variables that are read only, this is
+		serial_port->UART->ICR = serial_port->UART->ICR | (1 << 3 | 1 << 1);
 	}
 
-	uint8_t fun = (serial_port->UART->ISR & USART_ISR_RXNE);
-	if (fun == 0) {
-		SerialReadChar(incoming_buffer, serial_port);
-		//This is a logical error as well
 
-	}
-	else {
-		*incoming_buffer = serial_port->UART->RDR;
-		uint8_t kawhi = (serial_port->UART->RQR | USART_RQR_RXFRQ);
-		uint8_t kasf = (1 << 3 | 1 << 1);
-		serial_port->UART->RQR |= (1 << 3 | 1 << 1) ;
-		//I am unable to write into UART RQR and am unsure why
+	else{
+		incoming_buffer[buffer_counter] = serial_port->UART->RDR;
+
+		serial_port->UART->RQR |= (1 << 3 | 1 << 1);
+
+		if (incoming_buffer[buffer_counter] == '+'){
+			buffer_counter++;
+			return 1;
+		}
+		buffer_counter++;
 	}
 
 }
