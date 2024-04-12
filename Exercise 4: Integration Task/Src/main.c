@@ -101,7 +101,6 @@ int main(void)
 		}
 
 		else if(strcmp(operator, "serial") == 0){
-			uint8_t banana = 'get in';
 			SerialOutputString(operand, &USART1_PORT);
 		}
 
@@ -116,7 +115,6 @@ int main(void)
 
 		else{
 			//Have the LEDs flashing
-			uint8_t banana = 'get int';
 		}
 
 		free(operator);
