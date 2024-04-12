@@ -69,12 +69,6 @@ void enable_clocks() {
 int main(void)
 {
 
-	//Initialise relevant memory
-	uint8_t *operator = (uint8_t*) malloc(100 * sizeof(uint8_t));
-	uint8_t operator_length = 0;
-	uint8_t *operand = (uint8_t*) malloc(100 * sizeof(uint8_t));
-	uint8_t operand_length = 0;
-
 	//Enable
 	enable_clocks();
 
@@ -90,6 +84,13 @@ int main(void)
 
 	/* Loop forever */
 	for(;;) {
+
+		//Initialise relevant memory
+	 	uint8_t *operator = (uint8_t*) malloc(100 * sizeof(uint8_t));
+		uint8_t operator_length = 0;
+		uint8_t *operand = (uint8_t*) malloc(100 * sizeof(uint8_t));
+		uint8_t operand_length = 0;
+
 		Get_Command(operator, operator_length, operand, operand_length);
 		//operator = (int *)realloc(operator, sizeof(int)*3);
 
@@ -99,8 +100,9 @@ int main(void)
 			//This is component or question 1
 		}
 
-		else if(strcmp(*operator, "serial") == 0){
-			// this should use Stewards code to transmit to USART1
+		else if(strcmp(operator, "serial") == 0){
+			uint8_t banana = 'get in';
+			SerialOutputString(operand, &USART1_PORT);
 		}
 
 		else if(strcmp(operator, "oneshot") == 0){
@@ -117,9 +119,10 @@ int main(void)
 			uint8_t banana = 'get int';
 		}
 
+		free(operator);
+		free(operand);
 	}
-	free(operator);
-	free(operand);
+
 }
 
 
