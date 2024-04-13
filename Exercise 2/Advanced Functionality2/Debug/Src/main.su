@@ -1,0 +1,5 @@
+../Inc/core_cm4.h:1688:22:__NVIC_EnableIRQ	16	static
+../Src/main.c:34:6:USART1_EXTI25_IRQHandler	8	static
+../Src/main.c:45:6:finished_transmission	24	static
+../Src/main.c:56:6:enable_clocks	4	static
+../Src/main.c:62:5:main	216	static

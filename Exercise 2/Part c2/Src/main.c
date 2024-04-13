@@ -22,7 +22,6 @@
 
 #include "serial.h"
 
-// IVE EDITED THE CODE
 
 
 #include "stm32f303xc.h"
@@ -32,22 +31,45 @@
 #endif
 
 
+uint8_t incoming_buffer[200];
 
+uint8_t terminating_char_sent = 0;
+
+
+void USART1_EXTI25_IRQHandler(void)
+{
+
+	terminating_char_sent = SerialReadChar(incoming_buffer, &USART1_PORT);
+	EXTI->PR |= EXTI_PR_PR0;
+}
+
+
+
+
+void enable_clocks() {
+
+	RCC->AHBENR |= RCC_AHBENR_GPIOAEN | RCC_AHBENR_GPIOCEN | RCC_AHBENR_GPIOEEN;
+
+}
 
 int main(void)
 {
-	volatile uint8_t *incoming_buffer[200];
+
+	uint8_t *string_to_send = "This is a string !\r\n";
 	enable_clocks();
+
 	void (*completion_function)(uint32_t) = &LED_string;
+
 
 	SerialInitialise(BAUD_115200, &USART1_PORT, completion_function);
 	initialise_board();
 
-	SerialReadString(incoming_buffer, &USART1_PORT);
-
-
+	NVIC_EnableIRQ(USART1_IRQn);
 
 	/* Loop forever */
 	for(;;) {
 	}
 }
+
+
+

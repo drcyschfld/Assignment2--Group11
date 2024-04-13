@@ -22,8 +22,6 @@
 
 #include "serial.h"
 
-// IVE EDITED THE CODE
-
 
 #include "stm32f303xc.h"
 
@@ -33,21 +31,59 @@
 
 
 
+void USART1_EXTI25_IRQHandler(void)
+{
+
+		read_into_kernel();
+
+	EXTI->PR |= EXTI_PR_PR0;
+}
+
+
+
+
+void finished_transmission(uint32_t bytes_sent) {
+	// This function will be called after a transmission is complete
+
+	volatile uint32_t test = 0;
+	// make a very simple delay
+	for (volatile uint32_t i = 0; i < 0x8ffff; i++) {
+		// waste time !
+	}
+}
+
+
+void enable_clocks() {
+
+	RCC->AHBENR |= RCC_AHBENR_GPIOAEN | RCC_AHBENR_GPIOCEN | RCC_AHBENR_GPIOEEN;
+
+}
 
 int main(void)
 {
-	volatile uint8_t *incoming_buffer[200];
+
+	uint8_t received_string[200];
+	uint8_t current_string_length = 0;
+
 	enable_clocks();
+
 	void (*completion_function)(uint32_t) = &LED_string;
+
+	//LED_string(4, (string_to_send + 4));
 
 	SerialInitialise(BAUD_115200, &USART1_PORT, completion_function);
 	initialise_board();
 
-	SerialReadString(incoming_buffer, &USART1_PORT);
-
+	NVIC_EnableIRQ(USART1_IRQn);
 
 
 	/* Loop forever */
 	for(;;) {
+		current_string_length = Receive_Data(received_string, current_string_length);
+
+
 	}
 }
+
+
+

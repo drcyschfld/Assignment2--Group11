@@ -1,0 +1,14 @@
+../Inc/core_cm4.h:1688:22:__NVIC_EnableIRQ	2
+../Inc/core_cm4.h:1816:22:__NVIC_SetPriority	2
+../Src/serial.c:49:6:SerialInitialise	6
+../Src/serial.c:107:6:SerialOutputChar	2
+../Src/serial.c:118:6:SerialOutputString	2
+../Src/serial.c:131:9:SerialReadChar	3
+../Src/serial.c:152:6:SerialReadString	2
+../Src/serial.c:163:6:LED_string	2
+../Src/serial.c:174:6:initialise_board	1
+../Src/serial.c:180:6:enable_interrupt	1
+../Src/serial.c:203:6:switch_buffers	1
+../Src/serial.c:210:6:read_into_kernel	1
+../Src/serial.c:217:9:read_from_user_buffer	2
+../Src/serial.c:230:9:Receive_Data	4

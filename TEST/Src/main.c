@@ -22,8 +22,6 @@
 
 #include "serial.h"
 
-// IVE EDITED THE CODE
-
 
 #include "stm32f303xc.h"
 
@@ -51,3 +49,4 @@ int main(void)
 	for(;;) {
 	}
 }
+
