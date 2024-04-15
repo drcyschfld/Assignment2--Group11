@@ -26,5 +26,15 @@
 ../Src/timers.c:302:6:disable_timer_3_interrupt	4	static
 ../Src/timers.c:312:6:timer_3_set	24	static
 ../Src/timers.c:326:8:one_shot	16	static
-../Src/timers.c:344:6:LED_all	16	static
-../Src/timers.c:355:6:LED_off	16	static
+../Src/timers.c:342:6:reset_timer_4	4	static
+../Src/timers.c:352:6:reset_UIF_4	4	static
+../Src/timers.c:362:6:max_count_value_timer_4	24	static
+../Src/timers.c:373:6:start_timer_4	4	static
+../Src/timers.c:383:6:set_prescaler_timer_4	24	static
+../Src/timers.c:394:6:timer_4_initialisation	16	static,ignoring_inline_asm
+../Src/timers.c:414:6:enable_interrupt_timer_4	8	static,ignoring_inline_asm
+../Src/timers.c:430:6:disable_timer_4_interrupt	4	static
+../Src/timers.c:440:6:timer_4_set	24	static
+../Src/timers.c:454:6:timer_4_begin	16	static
+../Src/timers.c:465:6:LED_all	16	static
+../Src/timers.c:476:6:LED_off	16	static
