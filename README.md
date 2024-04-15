@@ -58,9 +58,11 @@ exercise1D requires
 **3A:**
 This module contains 2 main modules, one is the "timers.c" file which includes all necessary initialisation of the board and the timers.
 The other is the error handling function which triggers a callback function of the user's choice.
+
 **3B:**
 This module contains 2 main modules, one is the "timers.c" file which includes all necessary initialisation of the board and the timers. A struct is defined which through the get/set functions provided sets the necessary information to the timer registers.
 The other is the error handling function which triggers a callback function of the user's choice.
+
 **3C:**
 This module contains 2 main modules, one is the "timers.c" file which includes all necessary initialisation of the board and the timers. There is a function defined here called oneshot which encapsulates the functionality of this part.
 The other is the error handling function which triggers a callback function of the user's choice.
