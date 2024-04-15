@@ -1,0 +1,22 @@
+Online Meeting;
+Monday, 15th April
+Attendees: Kyan Gan, Tom Henry, Darcy Schofield
+
+Recap on previous items:
+exercise 1, 2 and 3 complete except for commenting. Integration task begun and mostly finished.
+
+
+-Discussion on how to present project during the lab assessment -> integration task; does it need to include advanced 
+functionality of exercise 1 and aspects of the basic functionality of exercise 2?
+-exercise 2 needed a delay loop in it to slow down the rate at which the lights flash wehn receiving a string. 
+for(int i = 1; i = 8,000,000; i++) -> should delay the lights flash by a second or so (8MHz)
+-Planned to meet at 12pm, tuesday the 16th, 2 hours before the presentation to do a practice presentation and make sure the
+group is prepared and ready to present the project
+-Decided that each member needs to complete the readme for the respective exercise. Additionally, the github needs to be tidied.
+
+
+Action Tasks: the readme file needs to be filled out before the presentation of the project tomorrow; this includes group member 
+contribution, the code functionality, user instructions and testing procedures. Also, everyone needs to git push the final copy of 
+their exercise and the integration task (exercise 4) to the main branch so that its clean/tidy and ready for presentation.
+
+Minutes Author: Darcy Schofield
