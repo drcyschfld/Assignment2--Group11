@@ -59,8 +59,8 @@ all: main-build
 main-build: Integration\ Task.elf secondary-outputs
 
 # Tool invocations
-Integration\ Task.elf Integration\ Task.map: $(OBJS) $(USER_OBJS) /Users/kyangan/STM32CubeIDE/workspace_1.14.0/Integration\ Task/STM32F303VCTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Integration Task.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/kyangan/STM32CubeIDE/workspace_1.14.0/Integration Task/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Integration Task.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Integration\ Task.elf Integration\ Task.map: $(OBJS) $(USER_OBJS) /Users/tomhenry/Desktop/Assignment2--Group11/Integration\ Task/STM32F303VCTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Integration Task.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/tomhenry/Desktop/Assignment2--Group11/Integration Task/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Integration Task.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
