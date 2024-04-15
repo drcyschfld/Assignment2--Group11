@@ -56,11 +56,14 @@ exercise1D requires
 **Exercise 3 - Timer Interface**
 
 **3A:**
-
+This module contains 2 main modules, one is the "timers.c" file which includes all necessary initialisation of the board and the timers.
+The other is the error handling function which triggers a callback function of the user's choice.
 **3B:**
-
+This module contains 2 main modules, one is the "timers.c" file which includes all necessary initialisation of the board and the timers. A struct is defined which through the get/set functions provided sets the necessary information to the timer registers.
+The other is the error handling function which triggers a callback function of the user's choice.
 **3C:**
-
+This module contains 2 main modules, one is the "timers.c" file which includes all necessary initialisation of the board and the timers. There is a function defined here called oneshot which encapsulates the functionality of this part.
+The other is the error handling function which triggers a callback function of the user's choice.
 
 **Exercise 4 - Integrations**
 
@@ -76,6 +79,16 @@ exercise1D requires
 
 
 **Exercise 3 - Timer Interface**
+Run the code, open a serial terminal program with the following settings:
+- baud rate: 115200
+- data size: 8
+- Parity: None
+- Stop bits: 1
+Type in "timer xxxx+" where "xxxx" is the number of milliseconds the period of the timer will be. Once this has been typed, the LEDs on the board should start lighting up one at a time at the requested interval.
+In order to change the period of the timer, type the same thing in while changing the value for "xxxx".
+To stop the timer from running, type in "disable timer+"
+Type in "oneshot xxxx+" where "xxxx" is the number of milliseconds of the delay before the oneshot event occurs. Once this has been typed, wait for the requested delay to elapse and then all of the LEDs will turn on at once.
+In order to get a clear image of how each function operates independently, can type in "disable led+" to turn off all the LEDs
 
 
 
