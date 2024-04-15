@@ -193,10 +193,13 @@ int main(void)
 
 	//LED_string(4, (string_to_send + 4));
 
+
+
 	SerialInitialise(BAUD_115200, &USART1_PORT, completion_function);
 	initialise_board();
 
 	NVIC_EnableIRQ(USART1_IRQn);
+
 
 
 	/* Loop forever */
@@ -208,8 +211,8 @@ int main(void)
 		uint8_t *operand = (uint8_t*) malloc(100 * sizeof(uint8_t));
 		uint8_t operand_length = 0;
 
-		Get_Command(operator, operator_length, operand, operand_length);
-		//operator = (int *)realloc(operator, sizeof(int)*3);
+		Get_Command(operator, operator_length, operand, operand_length, &USART1_PORT);
+
 
 	// to use string compare you need to set the end of the strings to the null terminating character
 
@@ -256,8 +259,8 @@ int main(void)
 		}
 
 		else{
-			//Have the LEDs flashing
-			uint8_t banana = 'get int';
+			uint16_t error_message = "The string you have entered is not one of the operators. The operators are 'led', 'serial', 'timer' and 'oneshot'.\n";
+			SerialOutputString(error_message, &USART1_PORT);
 		}
 
 		free(operator);

@@ -49,9 +49,11 @@ void LED_string(uint8_t *string, uint32_t counter);
 
 void chase_led();
 
-void Get_Command(uint8_t *operator_string, uint8_t operator_string_length, uint8_t *operand_string, uint8_t operand_string_length);
 
 int8_t (string_comparison)(const char *s1, const char *s2);
 
+void Get_Command(uint8_t *operator_string, uint8_t operator_string_length, uint8_t *operand_string, uint8_t operand_string_length, SerialPort *serial_port);
  
+
+
 #endif
