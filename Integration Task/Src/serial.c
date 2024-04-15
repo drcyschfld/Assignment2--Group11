@@ -122,6 +122,12 @@ void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
 		SerialOutputChar(*pt, serial_port);
 		counter++;
 		pt++;
+
+		if (*pt == '\0'){
+			SerialOutputChar('\n', serial_port);
+			SerialOutputChar('\r', serial_port);
+			counter++;
+		}
 	}
 
 	//serial_port->completion_function(counter);

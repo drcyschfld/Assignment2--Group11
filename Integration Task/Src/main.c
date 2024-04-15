@@ -63,7 +63,7 @@ void finished_transmission(uint32_t bytes_sent) {
 
 //global variable declaration
 volatile uint8_t led_pattern_flag = 1;
-
+volatile uint8_t led_change_flag = 1;
 
 //callback function declaration
 void (*timer_overflow_2)() = 0x00;
@@ -103,6 +103,22 @@ void TIM3_IRQHandler(){
 
 	reset_UIF_3();
 	disable_timer_3_interrupt();
+}
+
+void TIM4_IRQHandler(){
+/*
+ * function info:
+ * This function is the function that is called when the TIM3 interrupt occurs.
+ * The function checks whether the timer_overflow variable is set to another function.
+ * If timer_overflow is set, calls the function stored in the variable
+ * it then disables the timer 3 interrupt as this should be a one shot event
+ */
+
+	led_change_flag = 1;
+
+
+	reset_UIF_4();
+	disable_timer_4_interrupt();
 }
 
 
@@ -147,7 +163,19 @@ void LED_increase(){
 
 }
 
+uint8_t led_restricted (uint8_t state, uint8_t led_change_flag){
+	uint8_t led_flag = led_change_flag;
+	if(led_flag == 0){
+		return led_flag;
+	}
+	else if(led_flag == 1){
+		set_led_state(state);
+		timer_4_begin(0x1388);
+		led_flag = 0;
 
+	}
+	return led_flag;
+}
 
 
 
@@ -187,7 +215,8 @@ int main(void)
 
 		if(strcmp("led", operator) == 0){
 			uint8_t LED_value = strtoul(operand, NULL, 2);
-			set_led_state(LED_value);
+
+			led_change_flag = led_restricted(LED_value, led_change_flag);
 		}
 
 		else if(strcmp(operator, "serial") == 0){
