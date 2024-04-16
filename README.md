@@ -81,11 +81,13 @@ The other is the error handling function which triggers a callback function of t
 **Exercise 2 - Serial Interface**
 
 The user instructions is the samse for each section of exercise 2.
-1. Run the code and open a serial input terminal connected to USART1. IF 
+1. Run the code and open a serial input terminal connected to USART1. 
 2. Type the string or phrase to be transmitted to the microcontroller into the serial input terminal.
 3. Once the string or phrase has been completed, type '+' into the serial input terminal to signify the end of the string. In this program '+' is the terminating character.
 4. Once the terminating character is transmitted, a the callback function is called. In this program the callback function, 'Stirng , causes the LEDs to represent the binary ascii value of the transmitted characters.
 
+A serial port besides USART1 can be used by defining a different serial port struct and enteirng the address of that struct into SerialInitialise.
+Similarly, baud rates of 9600, 19200, 38400, 57600, 115200 at 8 MHz can be used by changing the baud rate input into SerialInitialise in the main function. This program uses 115200 at 8 MHz.
 
 
 
