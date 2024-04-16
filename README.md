@@ -81,7 +81,7 @@ The user instructions are as follows:
 1. Run the code
 2. Press the USER button (blue button)
 3. An led should turn on
-4. Continue pressing the led to see the led state hange and shift around the microcontroller
+4. Continue pressing the led to see the led state change and shift around the microcontroller
 
 **Exercise 2 - Serial Interface**
 
