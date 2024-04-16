@@ -1,0 +1,9 @@
+../Inc/core_cm4.h:1688:22:__NVIC_EnableIRQ	16	static
+../Inc/core_cm4.h:1816:22:__NVIC_SetPriority	16	static
+../Src/digital_io.c:10:6:EXTI0_IRQHandler	8	static
+../Src/digital_io.c:19:6:set_button_press_handler	16	static
+../Src/digital_io.c:25:9:get_led_state	16	static
+../Src/digital_io.c:34:6:set_led_state	24	static
+../Src/digital_io.c:44:6:chase_led	16	static
+../Src/digital_io.c:65:6:enable_interrupt_led	8	static,ignoring_inline_asm
+../Src/digital_io.c:91:6:disable_interrupt_led	4	static,ignoring_inline_asm

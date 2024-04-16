@@ -22,6 +22,8 @@
 #include <string.h>
 
 #include "serial.h"
+#include "timers.h"
+#include "digital_io.h"
 
 
 #include "stm32f303xc.h"
@@ -46,9 +48,6 @@ void USART1_EXTI25_IRQHandler(void)
 	EXTI->PR |= EXTI_PR_PR0;
 }
 
-
-
-
 void finished_transmission(uint32_t bytes_sent) {
 	// This function will be called after a transmission is complete
 
@@ -60,26 +59,153 @@ void finished_transmission(uint32_t bytes_sent) {
 }
 
 
-void enable_clocks() {
+//TIMERS/////////////////////////////////
 
-	RCC->AHBENR |= RCC_AHBENR_GPIOAEN | RCC_AHBENR_GPIOCEN | RCC_AHBENR_GPIOEEN;
+//global variable declaration
+volatile uint8_t led_pattern_flag = 1;
+volatile uint8_t led_change_flag = 1;
+
+//callback function declaration
+void (*timer_overflow_2)() = 0x00;
+void (*timer_overflow_3)() = 0x00;
+
+
+
+void TIM2_IRQHandler(){
+
+/*
+ * function info:
+ * This function is the function that is called when the TIM2 interrupt occurs.
+ * The function checks whether the timer_overflow variable is set to another function.
+ * If timer_overflow is set, calls the function stored in the variable
+ */
+
+	if (timer_overflow_2 != 0x00) {
+			timer_overflow_2();
+		}
+
+	reset_UIF_2();
 
 }
+
+void TIM3_IRQHandler(){
+/*
+ * function info:
+ * This function is the function that is called when the TIM3 interrupt occurs.
+ * The function checks whether the timer_overflow variable is set to another function.
+ * If timer_overflow is set, calls the function stored in the variable
+ * it then disables the timer 3 interrupt as this should be a one shot event
+ */
+
+	if (timer_overflow_3 != 0x00) {
+				timer_overflow_3();
+			}
+
+	reset_UIF_3();
+	disable_timer_3_interrupt();
+}
+
+void TIM4_IRQHandler(){
+/*
+ * function info:
+ * This function is the function that is called when the TIM3 interrupt occurs.
+ * The function checks whether the timer_overflow variable is set to another function.
+ * If timer_overflow is set, calls the function stored in the variable
+ * it then disables the timer 3 interrupt as this should be a one shot event
+ */
+
+	led_change_flag = 1;
+
+
+	reset_UIF_4();
+	disable_timer_4_interrupt();
+}
+
+
+
+void LED_increase(){
+/*
+ * function info:
+ * this function turns the LEDs on or off one by one.
+ * if all the LEDs have turned on, they will start to turn off one by one
+ * if all the LEDs are off, they will start to turn on one by one
+ */
+
+	uint8_t *LED_output_register = ((uint8_t*)&(GPIOE->ODR)) + 1;
+
+	if (*LED_output_register == 0b11111111){
+
+		led_pattern_flag = 0;
+
+	}
+
+	else if (*LED_output_register == 0b00000000){
+
+		led_pattern_flag = 1;
+
+	}
+
+	if (led_pattern_flag == 0){
+
+		uint8_t LED_right_shift = *LED_output_register >> 1;
+		*LED_output_register = LED_right_shift;
+
+	}
+
+	else if (led_pattern_flag == 1){
+
+		uint8_t LED_left_shift = *LED_output_register << 1;
+		uint8_t LED_pattern = LED_left_shift | 0x1;
+		*LED_output_register = LED_pattern;
+
+	}
+
+
+}
+
+uint8_t led_restricted (uint8_t state, uint8_t led_change_flag){
+	uint8_t led_flag = led_change_flag;
+	if(led_flag == 0){
+		return led_flag;
+	}
+	else if(led_flag == 1){
+		set_led_state(state);
+		timer_4_begin(0x1388);
+		led_flag = 0;
+
+	}
+	return led_flag;
+}
+
+void button_press_callback(void)
+{
+    // Implement your desired functionality here
+    // For example, toggle an LED
+    chase_led();
+}
+
+
+
+
+
 
 int main(void)
 {
 
 	//Enable
-	enable_clocks();
+	general_initialisation();
 
 	void (*completion_function)(uint32_t) = &LED_string;
 
 	//LED_string(4, (string_to_send + 4));
 
+
+
 	SerialInitialise(BAUD_115200, &USART1_PORT, completion_function);
 	initialise_board();
 
 	NVIC_EnableIRQ(USART1_IRQn);
+
 
 
 	/* Loop forever */
@@ -91,31 +217,82 @@ int main(void)
 		uint8_t *operand = (uint8_t*) malloc(100 * sizeof(uint8_t));
 		uint8_t operand_length = 0;
 
-		Get_Command(operator, operator_length, operand, operand_length);
-		//operator = (int *)realloc(operator, sizeof(int)*3);
+		Get_Command(operator, operator_length, operand, operand_length, &USART1_PORT);
+
 
 	// to use string compare you need to set the end of the strings to the null terminating character
 
 		if(strcmp("led", operator) == 0){
-			//This is component or question 1
+
+
+
+			uint8_t LED_value = strtoul(operand, NULL, 2);
+
+			led_change_flag = led_restricted(LED_value, led_change_flag);
 		}
 
 		else if(strcmp(operator, "serial") == 0){
+
+
+
 			SerialOutputString(operand, &USART1_PORT);
 		}
 
 		else if(strcmp(operator, "oneshot") == 0){
 			//This is the advanced section of the timer part
+
+
+			uint16_t milliseconds = atoi(operand);
+
+			timer_overflow_3 = one_shot(milliseconds, &LED_all);
+
 		}
 
 		else if(strcmp(operator, "timer") == 0){
 			//I think this is the second section for the timer
 
+
+			uint16_t milliseconds = atoi(operand);
+
+			timer_overflow_2 = regular_timer(milliseconds, &LED_increase);
+
+		}
+
+		else if(strcmp(operator, "disable") == 0){
+
+
+
+			if (strcmp(operand, "timer") == 0){
+
+				disable_timer_2_interrupt();
+
+			}
+
+			else if (strcmp(operand, "led") == 0){
+
+				set_led_state(0b00000000);
+
+			}
+
+			else if(strcmp(operand, "button") == 0){
+
+				disable_interrupt_led();
+			}
+		}
+
+		else if(strcmp(operator, "button") == 0){
+
+			if (strcmp(operand, "led") == 0){
+				enable_interrupt_led();
+				set_button_press_handler(button_press_callback);
+
+			}
 		}
 
 		else{
-			//Have the LEDs flashing
-			uint8_t banana = 'get int';
+			disable_interrupt_led();
+			uint16_t error_message = "The string you have entered is not one of the operators. The operators are 'led', 'serial', 'timer' and 'oneshot'.\n";
+			SerialOutputString(error_message, &USART1_PORT);
 		}
 
 		free(operator);

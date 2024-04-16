@@ -1,0 +1,14 @@
+../Inc/core_cm4.h:1688:22:__NVIC_EnableIRQ	16	static
+../Inc/core_cm4.h:1816:22:__NVIC_SetPriority	16	static
+../Src/serial.c:49:6:SerialInitialise	32	static
+../Src/serial.c:107:6:SerialOutputChar	16	static
+../Src/serial.c:118:6:SerialOutputString	24	static
+../Src/serial.c:137:9:SerialReadChar	16	static
+../Src/serial.c:158:6:SerialReadString	24	static
+../Src/serial.c:169:6:LED_string	32	static
+../Src/serial.c:184:6:enable_interrupt	8	static,ignoring_inline_asm
+../Src/serial.c:207:6:switch_buffers	4	static
+../Src/serial.c:214:6:read_into_kernel	8	static
+../Src/serial.c:221:9:read_from_user_buffer	24	static
+../Src/serial.c:234:9:Receive_Data	16	static
+../Src/serial.c:247:6:Get_Command	32	static

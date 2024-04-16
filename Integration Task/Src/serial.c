@@ -122,6 +122,12 @@ void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
 		SerialOutputChar(*pt, serial_port);
 		counter++;
 		pt++;
+
+		if (*pt == '\0'){
+			SerialOutputChar('\n', serial_port);
+			SerialOutputChar('\r', serial_port);
+			counter++;
+		}
 	}
 
 	//serial_port->completion_function(counter);
@@ -163,19 +169,17 @@ void SerialReadString(uint8_t *incoming_buffer, SerialPort *serial_port) {
 void LED_string(uint8_t *string, uint32_t counter) {
 	uint16_t *led_register = ((uint8_t*)&(GPIOE->ODR)) + 1;
 
-	for(int i = 0; (i-1) < counter; i++) {
+	for(int i = 0; i < counter; i++) {
 		//string = string + i;
-		*led_register = string[i]; //I am unable to write into the led_register
-//		delay_function(); //Insert the delay function from Kyan
+		*led_register = string[i];
+
+		for (int i = 0; i < 800000; i++){
+		}
 
 	}
 }
 
-void initialise_board() {
-	// get a pointer to the second half word of the MODER register (for outputs pe8-15)
-	uint16_t *led_output_registers = ((uint16_t *)&(GPIOE->MODER)) + 1;
-	*led_output_registers = 0x5555;
-}
+
 
 void enable_interrupt() {
 	// Disable the interrupts while messing around with the settings
@@ -240,7 +244,7 @@ uint8_t Receive_Data(uint8_t *string_memory, uint8_t current_string_length){
 }
 
 
-void Get_Command(uint8_t *operator_string, uint8_t operator_string_length, uint8_t *operand_string, uint8_t operand_string_length){
+void Get_Command(uint8_t *operator_string, uint8_t operator_string_length, uint8_t *operand_string, uint8_t operand_string_length, SerialPort *serial_port ){
 	//this could also be a global variable
 	uint8_t first_spacebar_flag = 0;
 	uint8_t terminating_character_flag = 0;
@@ -253,6 +257,7 @@ void Get_Command(uint8_t *operator_string, uint8_t operator_string_length, uint8
 			if(operator_string[operator_string_length - 1] == ' '){
 				operator_string[operator_string_length - 1] = '\0';
 				first_spacebar_flag = 1;
+				//serial_port->completion_function((operator_string), operator_string_length);
 			}
 		}
 
@@ -262,6 +267,10 @@ void Get_Command(uint8_t *operator_string, uint8_t operator_string_length, uint8
 			if(operand_string[operand_string_length-1] == '+'){
 				operand_string[operand_string_length-1] = '\0';
 				terminating_character_flag = 1;
+				//serial_port->completion_function((operator_string), operator_string_length);
+				//serial_port->completion_function((operand_string), operand_string_length);
+
+
 			}
 		}
 
