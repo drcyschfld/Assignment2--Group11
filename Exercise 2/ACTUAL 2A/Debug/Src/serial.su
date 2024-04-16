@@ -1,0 +1,8 @@
+../Src/serial.c:43:6:SerialInitialise	32	static
+../Src/serial.c:100:6:SerialOutputChar	16	static
+../Src/serial.c:111:6:SerialOutputString	24	static
+../Src/serial.c:124:6:SerialReadChar	16	static
+../Src/serial.c:142:6:SerialReadString	24	static
+../Src/serial.c:153:6:LED_string	24	static
+../Src/serial.c:165:6:initialise_board	16	static
+../Src/serial.c:172:6:enable_clocks	4	static
