@@ -29,6 +29,7 @@ Darcy Schofield
 
 **Exercise 1 - Digital I/O**
 
+**W05-C-Interrupt:**
 To know how exercise 1 works, you need to know how the provided code works for W05-C-Interrupt. Firstly, the code enters the EXTI0_IRQHandler function, where the interrupt service routine (ISR) for the EXTI. This is linked to a button press. The interrupt is triggerred when the button is pressed. Inside the ISR, it first checks if on_button_press is not NULL, ensuring there's a valid function to call, then calls that function to handle the button press. The interrupt is cleared by setting the appropriate bit in the EXTI pending register (EXTI->PR), ensuring it doesn't trigger repeatedly without another actual button press. The enable_clocks function enables the clocks for GPIO ports A, C, and E using the RCC AHB peripheral clock enable register. The initialise_board function configures the GPIOE pins 8-15 to operate as output. The chase_led function manipulates the LEDs connected to GPIOE's upper 8 pins (8-15). It shifts the current LED state left, creating a "running light" effect. If the register value becomes 0 after shifting (all LEDs off), it resets to start the pattern over from the first LED. The main function then calls all the appropriate functions.
 
 **1A:**
@@ -41,7 +42,7 @@ exercise1B requires the passing of a function pointer to the software module on 
 exercise1C requires that the chase_led function uses get/set functions, and that the only way to acess the LED state is via the get/set functions. The set_led_state(uint8_t state) function updates the state of the LEDs, which is stored in a static variable within the file (making it accessible only through these functions). This function sets the internal state of the LEDs to the passed state value. This function is used whenever the state of the LEDs needs to be changed/when the button is pressed. The get_led_state() function retrieves the current state of the LEDs from the same static variable (led_state). This function provides access to the current state of the LEDs, allowing other parts of the program to read but not directly modify the state.
 
 **1D:**
-exercise1D requires 
+exercise1D requires that the speed at which the leds change to be restricted by a timer. The code functions similarly to before, where the leds turn on and chase around the board, except now it utilises timers instead of a button press to update the led state. First, there is a timer configuration where the following functions are executed: timer_initialisation, __disable_irq, max_count_value, set_prescaler, reset_timer, reset_UIF and __enable_irq. Next the interrupts are set up: enable_interrupt sets up the interrupt handling for Timer 2. It configures the importance level of the Timer 2 interrupt overflow. Then, it activates the Timer 2 interrupt in the microcontroller's Nested Vector Interrupt Controller (NVIC) and ensures that Timer 2 is configured to generate an update interrupt (UIE) when it overflows.
 
 **Exercise 2 - Serial Interface**
 
