@@ -78,6 +78,7 @@ The other is the error handling function which triggers a callback function of t
 
 
 **Exercise 2 - Serial Interface**
+
 The user instructions is the samse for each section of exercise 2.
 1. Run the code and open a serial input terminal connected to USART1.
 2. Type the string or phrase to be transmitted to the microcontroller into the serial input terminal.
@@ -89,7 +90,6 @@ The user instructions is the samse for each section of exercise 2.
 
 
 **Exercise 3 - Timer Interface**
-
 Run the code, open a serial terminal program with the following settings:
 - baud rate: 115200
 - data size: 8
