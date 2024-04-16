@@ -1,8 +1,0 @@
-../Src/serial.c:43:6:SerialInitialise	6
-../Src/serial.c:100:6:SerialOutputChar	2
-../Src/serial.c:111:6:SerialOutputString	2
-../Src/serial.c:124:6:SerialReadChar	3
-../Src/serial.c:144:6:SerialReadString	2
-../Src/serial.c:155:6:LED_string	2
-../Src/serial.c:167:6:initialise_board	1
-../Src/serial.c:174:6:enable_clocks	1
