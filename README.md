@@ -29,15 +29,16 @@ Darcy Schofield
 
 **Exercise 1 - Digital I/O**
 
+To know how exercise 1 works, you need to know how the provided code works for W05-C-Interrupt. Firstly, the code enters the EXTI0_IRQHandler function, where the interrupt service routine (ISR) for the EXTI. This is linked to a button press. The interrupt is triggerred when the button is pressed. Inside the ISR, it first checks if on_button_press is not NULL, ensuring there's a valid function to call, then calls that function to handle the button press. The interrupt is cleared by setting the appropriate bit in the EXTI pending register (EXTI->PR), ensuring it doesn't trigger repeatedly without another actual button press. The enable_clocks function enables the clocks for GPIO ports A, C, and E using the RCC AHB peripheral clock enable register. The initialise_board function configures the GPIOE pins 8-15 to operate as output. The chase_led function manipulates the LEDs connected to GPIOE's upper 8 pins (8-15). It shifts the current LED state left, creating a "running light" effect. If the register value becomes 0 after shifting (all LEDs off), it resets to start the pattern over from the first LED. The main function then calls all the appropriate functions.
+
 **1A:**
-exercise1A requires that a module is made for the provided code. The module is called digital_io.c/h. The way is work is
+exercise1A requires that a module is made for the provided code. The code is functions similarly to the previous code except for the fact that it now calls a header file, digital_io.h. This file links the digitcal_io.c file to the main function. The digital_io.c file now contains the code for the EXTI0_IRQHandler, chase_led and the button_pressed_handler functions. Code runs as before, except now it calls the digital_io functions from a different file. 
 
 **1B:**
-exercise1B requires the passing of a function pointer to the software module on initialisation that
-is called (as a callback) when there is a button press.
+exercise1B requires the passing of a function pointer to the software module on initialisation that is called (as a callback) when there is a button press. First, there is a function pointer defined, [void (*button_press_handler)(void) = 0x00;]. This function pointer is meant to point to any function that matches the signature void func(void). The header file (digital_io.h) declares a function set_button_press_handler() which is defined in digital_io.c. This function is used to assign a valid function to button_press_handler. The argument handler is itself a function pointer of the same type as button_press_handler. This function simply assigns the passed function pointer handler to the global function pointer button_press_handler. The ISR check in the EXTI0_IRQHandler function if button_press_handler points to a valid function. If the pointer is valid, the function it points to is called using button_press_handler(). This calls the function whose address is stored in the pointer, executing the callback. In the main file, the callback function can be seen, button_press_callback. This function just calls the chase_led function, however it can do whatever the coder desires.
 
 **1C:**
-exercise1C requires that the chase_led function uses get/set functions, and that the only way to acess the LED state is via the get/set functions.
+exercise1C requires that the chase_led function uses get/set functions, and that the only way to acess the LED state is via the get/set functions. The set_led_state(uint8_t state) function updates the state of the LEDs, which is stored in a static variable within the file (making it accessible only through these functions). This function sets the internal state of the LEDs to the passed state value. This function is used whenever the state of the LEDs needs to be changed/when the button is pressed. The get_led_state() function retrieves the current state of the LEDs from the same static variable (led_state). This function provides access to the current state of the LEDs, allowing other parts of the program to read but not directly modify the state.
 
 **1D:**
 exercise1D requires 
