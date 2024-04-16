@@ -89,6 +89,7 @@ The user instructions is the samse for each section of exercise 2.
 
 
 **Exercise 3 - Timer Interface**
+
 Run the code, open a serial terminal program with the following settings:
 - baud rate: 115200
 - data size: 8
