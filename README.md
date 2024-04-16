@@ -114,9 +114,13 @@ Run the code, open a serial terminal program with the following settings:
 - Parity: None
 - Stop bits: 1
 Type in "timer xxxx+" where "xxxx" is the number of milliseconds the period of the timer will be. Once this has been typed, the LEDs on the board should start lighting up one at a time at the requested interval.
+
 In order to change the period of the timer, type the same thing in while changing the value for "xxxx".
+
 To stop the timer from running, type in "disable timer+"
+
 Type in "oneshot xxxx+" where "xxxx" is the number of milliseconds of the delay before the oneshot event occurs. Once this has been typed, wait for the requested delay to elapse and then all of the LEDs will turn on at once.
+
 In order to get a clear image of how each function operates independently, can type in "disable led+" to turn off all the LEDs
 
 
@@ -126,3 +130,7 @@ In order to get a clear image of how each function operates independently, can t
 
 **Exercise 1:**
 The testing procedure is very simple for exercise 1. The led represents the state, shows that the code functions appropriately, therefore the led is the testcase for all of exercise 1. As the button is pressed, the led moves around the microcontroller, showing the functionality of the code.
+
+**Exercise 3:**
+The testing procedure is very simple for exercise 3. for the timer function, get a stopwatch and timer when each LED comes on. For the oneshot functionality, time the delay between calling the function and the LEDs turning on.
+
