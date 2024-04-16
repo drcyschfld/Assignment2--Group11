@@ -80,10 +80,10 @@ The other is the error handling function which triggers a callback function of t
 **Exercise 2 - Serial Interface**
 
 The user instructions is the samse for each section of exercise 2.
-1. Run the code and open a serial input terminal connected to USART1.
+1. Run the code and open a serial input terminal connected to USART1. IF 
 2. Type the string or phrase to be transmitted to the microcontroller into the serial input terminal.
-3. Once the string or phrase has been completed, type a '+' into the serial input terminal to signify that the end of the string. In this program '+' is the terminating character.
-4. The callback function is then called. In this program the callback function, 'Stirng , causes the LEDs to represent the binary ascii value of the transmitted characters.
+3. Once the string or phrase has been completed, type '+' into the serial input terminal to signify the end of the string. In this program '+' is the terminating character.
+4. Once the terminating character is transmitted, a the callback function is called. In this program the callback function, 'Stirng , causes the LEDs to represent the binary ascii value of the transmitted characters.
 
 
 
