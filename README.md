@@ -77,7 +77,11 @@ The other is the error handling function which triggers a callback function of t
 **3. User Instructions**
 -
 **Exercise 1 - Digital I/O**
-
+The user instructions are as follows:
+1. Run the code
+2. Press the USER button (blue button)
+3. An led should turn on
+4. Continue pressing the led to see the led state hange and shift around the microcontroller
 
 **Exercise 2 - Serial Interface**
 
@@ -109,3 +113,6 @@ In order to get a clear image of how each function operates independently, can t
 
 **4. Testing Procedure**
 - 
+
+**Exercise 1:**
+The testing procedure is very simple for exercise 1. The led represents the state, shows that the code functions appropriately, therefore the led is the testcase for all of exercise 1. As the button is pressed, the led moves around the microcontroller, showing the functionality of the code.
