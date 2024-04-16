@@ -47,12 +47,22 @@ exercise1D requires that the speed at which the leds change to be restricted by 
 **Exercise 2 - Serial Interface**
 
 **2A:**
+The purpose of exercise 2A is to demonstrate a serial communication across USART1 specifically with the ability of a microcontroller to receive a string from a PC serial terminal input. This is achieved by allocating a incoming buffer to store the string and passing this through a function that frequently checks whether the TXE flag has been raised within the interupt status register of USART1.
+
 
 **2B:**
+The purpose of exercise 2B is to implement a callback function after a string has been recieved from USART1. This requires a mechanism that checks whether a terminating character has been sent. Once this is sent the callback function is called and run. The callback function is stored as a pointer to the completion function section of the USART1_PORT struct, in this case the LED_string function address is the function address that is saved.
+
 
 **2C:**
+The purpose of exercise 2C is to use interrupts, as opposed to polling, to receive incoming strings. This is achieved by enabling the reception bit interrrupt RXNEIE and writing into the USART1_EXTI25_IRQHandler. This interrupt occurs if an overun error, framing error or incoming bit is ready to be receieved. Thus, when the interrupt occurs the handler checks what caused the interrupt and acts accordingly. If the interrupt was called due to an overun or framing error, the error bit is reset. While, if the interrupt is called because an incoming bit is ready for reception, then thsi bit is stored into an incoming buffer.
+
 
 **2D:**
+The purpose of exercise 2D is to implement a double buffer for receiving data. The use of a double buffere allows data to be read into one buffer, while the other buffer continues to receive data. Once all the data in the user buffer has been used and stored by the program, the two buffers switch, meaning that incoming data is read into the now empty buffer and the buffer that is full with recently received data is beign used by the program.
+
+Doing this allows the receiving module to run be seperately and simualtaneously with the reset of the program. Additionally, it significantly increases the potential data avaliable to be read, as information is constantly received and read from the double buffer. Overall, allowing for more efficient use with a greater amount of incoming data.
+
 
 
 **Exercise 3 - Timer Interface**
