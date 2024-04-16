@@ -1,0 +1,5 @@
+../Src/digital_io.c:11:6:EXTI0_IRQHandler	8	static
+../Src/digital_io.c:20:6:set_button_press_handler	16	static
+../Src/digital_io.c:26:9:get_led_state	4	static
+../Src/digital_io.c:32:6:set_led_state	16	static
+../Src/digital_io.c:40:6:chase_led	16	static
