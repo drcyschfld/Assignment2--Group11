@@ -1,0 +1,12 @@
+/Users/darcyschofield/Dropbox/My Mac (Darcy’s MacBook Air)/Downloads/MTRX2700-2024-main/stm32f303-definitions/Core/Inc/core_cm4.h:1688:22:__NVIC_EnableIRQ	2
+/Users/darcyschofield/Dropbox/My Mac (Darcy’s MacBook Air)/Downloads/MTRX2700-2024-main/stm32f303-definitions/Core/Inc/core_cm4.h:1816:22:__NVIC_SetPriority	2
+../Src/digital_io.c:12:5:enable_clocks	1
+../Src/digital_io.c:21:6:initialise_board	1
+../Src/digital_io.c:29:6:reset_timer	1
+../Src/digital_io.c:35:6:reset_UIF	1
+../Src/digital_io.c:41:6:max_count_value	1
+../Src/digital_io.c:48:6:start_timer	1
+../Src/digital_io.c:54:6:set_prescaler	1
+../Src/digital_io.c:61:6:general_initialisation	1
+../Src/digital_io.c:68:6:timer_initialisation	1
+../Src/digital_io.c:82:6:enable_interrupt	1

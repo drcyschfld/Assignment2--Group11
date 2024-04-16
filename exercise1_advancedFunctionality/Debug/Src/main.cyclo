@@ -1,0 +1,8 @@
+../Src/main.c:36:6:TIM2_IRQHandler	2
+../Src/main.c:53:6:chase_led	5
+../Src/main.c:93:6:set_max_count	1
+../Src/main.c:103:6:set_psc_value	1
+../Src/main.c:113:6:LED_off	1
+../Src/main.c:121:12:delay_set	1
+../Src/main.c:141:6:timer_set	1
+../Src/main.c:155:5:main	1
